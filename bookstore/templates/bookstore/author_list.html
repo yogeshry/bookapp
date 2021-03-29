@@ -1,0 +1,52 @@
+{% extends 'bookstore/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Author List</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a class="btn btn-outline-info btn-md" style="float: right;" href="{% url 'author_new' %}">+ New Author</a>
+    <br></br>
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Author Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Born In</th>
+                    <th scope="col">Died In</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for author in object_list %}
+                <tr>
+                    <td>{{ author.authorNumber }}</td>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.bornYear }}</td>
+                    <td>{{ author.diedYear }}</td>
+                    <td><a href="{% url 'author_view' author.authorNumber %}"><button type="button" class="btn btn-outline-primary btn-sm">View</button></a></td>
+                    <td><a href="{% url 'author_delete' author.authorNumber %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There is no author, yet. But if you want, you can add from <a class="badge badge-info" href="{% url 'author_new' %}"><strong>here.</strong></a>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}

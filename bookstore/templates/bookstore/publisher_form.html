@@ -1,0 +1,22 @@
+{% extends 'bookstore/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">{% if request.path == '/publisher/new' %} New Publisher {% else %} Edit Publisher- {% endif %}
+        {% if request.path != '/publisher/new' %}<small>{{ publisher.name }}</small>{% endif %}
+    </h1>
+    <div class="row">
+        <div class="col-12">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input type="submit" {% if request.path == '/publisher/new' %} value="Add" {% else %} value="Update" {% endif %} class="btn btn-success"/>
+                <a href="{% url 'publisher_list' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
