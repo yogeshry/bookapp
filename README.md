@@ -3,7 +3,7 @@ A simple crud in django
 
 Demo:
 
-- [heroku](https://polar-waters-34271.herokuapp.com/)
+- [heroku](https://dashboard.heroku.com/apps/allbookapp/resources)
 
 Used:
 
