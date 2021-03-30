@@ -1,0 +1,54 @@
+{% extends 'bookapp/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Publication List</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a  href="{% url 'publication_new' %}"><button class="btn btn-success"><i class="fa fa-plus"> New</i></button></a>
+    <br></br>
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">President</th>
+                    <th scope="col">Founded In</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for publication in object_list %}
+                <tr>
+                    <td><a href="{% url 'publication_view' publication.name %}"><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                        <a href="{% url 'publication_delete' publication.name %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>    
+                    <td>{{ publication.name }}</td>
+                    <td>{{ publication.city }}</td>
+                    <td>{{ publication.country }}</td>
+                    <td>{{ publication.president }}</td>
+                    <td>{{ publication.foundedIn }}</td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There are no records. Please make entries first.
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}

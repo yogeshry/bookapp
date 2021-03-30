@@ -1,0 +1,51 @@
+{% extends 'bookapp/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Author List </button></small> 
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'author_new' %}"><button class="btn btn-success"><i class="fa fa-plus"> New</i></button></a>
+    <br></br>
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col">Author Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Born In</th>
+                    <th scope="col">Died In</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for author in object_list %}
+                <tr>
+                    <td><a href="{% url 'author_view' author.number %}"><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                    <a href="{% url 'author_delete' author.number %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+                    <td>{{ author.number }}</td>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.bornIn }}</td>
+                    <td>{{ author.diedIn }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There are no records. Please make entries first.
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}

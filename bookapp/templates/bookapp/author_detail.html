@@ -1,0 +1,20 @@
+{% extends 'bookapp/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+                <li class="list-group-item active"><strong>Author Detail:</strong> {{ object.name }}</li>
+              <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
+              <li class="list-group-item"><strong>Author Number:</strong> {{ object.number }}</li>
+              <li class="list-group-item"><strong>Born In:</strong> {{ object.bornIn }}</li>
+              <li class="list-group-item"><strong>Died In:</strong> {{ object.diedIn }}</li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="text-center">
+                <a href="{% url 'author_edit' object.number %}"><button type="button" class="btn btn-primary">Edit</button></a>
+                <a href="{% url 'author_list' %}"><button type="button" class="btn btn-secondary">Back</button></a>
+    </div>
+{% endblock %}

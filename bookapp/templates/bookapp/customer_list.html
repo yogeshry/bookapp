@@ -1,0 +1,55 @@
+{% extends 'bookapp/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Customer List</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'customer_new' %}"><button class="btn btn-success"><i class="fa fa-plus"> New</i></button></a>
+    <br></br>
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col">Customer Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Street</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Country</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for customer in object_list %}
+                <tr>
+                    <td><a href="{% url 'customer_view' customer.number %}"><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                        <a href="{% url 'customer_delete' customer.number %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>    
+                    <td>{{ customer.number }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.street }}</td>
+                    <td>{{ customer.city }}</td>
+                    <td>{{ customer.state }}</td>
+                    <td>{{ customer.country }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There are no records. Please make entries first.
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}

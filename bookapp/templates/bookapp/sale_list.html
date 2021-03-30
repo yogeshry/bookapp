@@ -1,0 +1,54 @@
+{% extends 'bookapp/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Sales List</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <a  href="{% url 'sale_new' %}"><button class="btn btn-success"><i class="fa fa-plus"> New</i></button></a>
+    <br></br>
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity In</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sale in object_list %}
+                <tr>
+                    <td><a href="{% url 'sale_view' sale.id %}"><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                        <a href="{% url 'sale_delete' sale.id %}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+                    <td>{{ sale.book }}</td>
+                    <td>{{ sale.customer }}</td>
+                    <td>{{ sale.date }}</td>
+                    <td>{{ sale.price }}</td>
+                    <td>{{ sale.quantity }}</td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There are no records. Please make entries first.
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}
